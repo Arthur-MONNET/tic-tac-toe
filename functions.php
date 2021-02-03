@@ -51,7 +51,7 @@ function checkIfSomeoneWon($grid): bool
         $diagonals[0] *= $grid[$i][$i] ?? 0;
         $diagonals[1] *= $grid[$i][2 - $i] ?? 0;
     }
-    foreach ([...$col, ...$row, ...$diagonals] as $val) {
+    foreach (array_merge($col, $row, $diagonals) as $val) {
         if ($val == 1 || $val == 8) {
             return true;
         }
@@ -72,7 +72,7 @@ function play(&$game = [])
         $game[$res[0]][$res[1]] = $player;
         if (checkIfSomeoneWon($game)) {
             drawGrid($game);
-            echo "Joueur " . $player . " A GAGNÉ";
+            echo "Joueur " . $player . " A GAGNÉ"."\n";
             return;
         }
         if (!hasAnyEmptyCell($game)) {
